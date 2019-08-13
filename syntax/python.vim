@@ -56,6 +56,7 @@ if s:Enabled('g:python_highlight_all')
   call s:EnableByDefault('g:python_print_as_function')
   call s:EnableByDefault('g:python_highlight_class_vars')
   call s:EnableByDefault('g:python_highlight_operators')
+  call s:EnableByDefault('g:python_highlight_function_kwargs')
 endif
 
 "
@@ -93,7 +94,7 @@ else
   syn match   pythonStatement   '\<async\s\+def\>' nextgroup=pythonFunction skipwhite
   syn match   pythonStatement   '\<async\s\+with\>'
   syn match   pythonStatement   '\<async\s\+for\>'
-  syn cluster pythonExpression contains=pythonStatement,pythonRepeat,pythonConditional,pythonOperator,pythonNumber,pythonHexNumber,pythonOctNumber,pythonBinNumber,pythonFloat,pythonString,pythonBytes,pythonBoolean,pythonNone,pythonSingleton,pythonBuiltinObj,pythonBuiltinFunc,pythonBuiltinType
+  syn cluster pythonExpression contains=pythonStatement,pythonRepeat,pythonConditional,pythonOperator,pythonNumber,pythonHexNumber,pythonOctNumber,pythonBinNumber,pythonFloat,pythonString,pythonBytes,pythonBoolean,pythonNone,pythonSingleton,pythonBuiltinObj,pythonBuiltinFunc,pythonBuiltinType,pythonFunctionKeyword
 endif
 
 
@@ -394,6 +395,14 @@ if s:Enabled('g:python_highlight_exceptions')
   unlet s:exs_re
 endif
 
+"
+" Functions
+"
+if s:Enabled('g:python_highlight_function_kwargs')
+    syn match pythonFunctionKeyword "\v\s{-}\zs\w+\ze\=(\=)@!(\_s)@!" display
+    syn region pythonFunctionKwargs start=+(+ end=+)+ contains=pythonComment,@pythonExpression
+endif
+
 if s:Enabled('g:python_slow_sync')
   syn sync minlines=2000
 else
@@ -486,6 +495,8 @@ if v:version >= 508 || !exists('did_python_syn_inits')
 
   HiLink pythonExClass          Structure
   HiLink pythonClassVar         Identifier
+
+  HiLink pythonFunctionKeyword  Identifier
 
   delcommand HiLink
 endif
