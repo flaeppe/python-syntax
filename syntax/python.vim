@@ -1,3 +1,7 @@
+if exists('g:polyglot_disabled') && index(g:polyglot_disabled, 'python') != -1
+  finish
+endif
+
 " For version 5.x: Clear all syntax items
 " For versions greater than 6.x: Quit when a syntax file was already loaded
 if v:version < 600
