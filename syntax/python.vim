@@ -404,7 +404,7 @@ endif
 "
 if s:Enabled('g:python_highlight_function_kwargs')
     syn match pythonFunctionKeyword "\v\s{-}\zs\w+\ze\=(\=)@!(\_s)@!" display
-    syn region pythonFunctionKwargs start=+(+ end=+)+ contains=pythonComment,@pythonExpression,pythonClassVar
+    syn region pythonFunctionKwargs start=+(+ end=+)+ contains=pythonComment,@pythonExpression,pythonClassVar,pythonExClass
 endif
 
 if s:Enabled('g:python_slow_sync')
